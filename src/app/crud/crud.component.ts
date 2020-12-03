@@ -49,6 +49,8 @@ export class CrudComponent implements OnInit {
   public save(animal: Animal) {
     if (!animal) return;
 
+    this.loading$.next(true);
+
     if (animal.animalId) {
       this.update(animal);
     } else {
@@ -77,6 +79,7 @@ export class CrudComponent implements OnInit {
   public remove(animal: Animal) {
     if (!animal) return;
 
+    this.loading$.next(true);
     this.service.remove(animal.animalId).subscribe((response) => {
       this.fetchData();
     });
