@@ -8,6 +8,10 @@
     <div>
       <mat-slide-toggle (change)="toggleJsonView()">Json view</mat-slide-toggle>
 
+      <button mat-raised-button (click)="clearCache()">
+        <mat-icon>delete</mat-icon> Clear cache
+      </button>
+
       <button mat-raised-button (click)="fetchData()">
         <mat-icon>refresh</mat-icon> Refresh
       </button>
@@ -19,8 +23,9 @@
     [list]="list$ | async"
     [loading]="loading$ | async"
     [jsonView]="jsonView$ | async"
-    [editingElement]="editingElement$ | async"
+    [newElement]="newElement$ | async"
     (saved)="save($event)"
     (removed)="remove($event)"
+    (cancelled)="cancel()"
   ></app-list>
 </div>

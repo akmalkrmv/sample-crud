@@ -14,7 +14,7 @@ export const AnimalColumns: AnimalColumnMeta[] = [
   { editable: false, name: 'newGroupId', header: 'New Group Id' },
   { editable: false, name: 'currentGroupId', header: 'Current Group Id' },
 
-  { editable: false, name: 'deletable', header: 'Deletable' },
+  // { editable: false, name: 'deletable', header: 'Deletable' },
 
   { editable: true, name: 'newGroupName', header: 'New Group Name' },
   { editable: true, name: 'currentGroupName', header: 'Current Group Name' },

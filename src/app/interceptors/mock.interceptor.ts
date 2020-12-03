@@ -10,10 +10,11 @@ import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { data } from '../core/mock-data';
 import { Animal, AnimalOperationResponse } from '../models/animal';
+import { CacheService } from '../services/cache.service';
 
 @Injectable()
 export class MockInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private cache: CacheService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -21,20 +22,27 @@ export class MockInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const { method, url, body } = request;
 
+    let data = this.cache.getData();
+
     if (method === 'GET' && url.endsWith('/api/getAll')) {
       return this.responseWithDelay({ status: 200, body: data });
     }
 
     if (method === 'POST' && url.endsWith('/api/create')) {
       data.result.unshift(body);
+      this.cache.update(data);
+
       return this.success(body);
     }
 
     if (method === 'PUT' && url.endsWith('/api/update')) {
+      console.log(body)
       const index = this.findIndex(body);
 
       if (index >= 0) {
         data.result[index] = body;
+        this.cache.update(data);
+
         return this.success(body);
       } else {
         return this.fail(body);
@@ -47,6 +55,8 @@ export class MockInterceptor implements HttpInterceptor {
 
       if (index >= 0) {
         data.result.splice(index, 1);
+        this.cache.update(data);
+
         return this.success(body);
       } else {
         return this.fail(body);

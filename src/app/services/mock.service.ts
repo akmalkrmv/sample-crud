@@ -46,7 +46,7 @@ export class MockService {
 
   private notify(response: AnimalOperationResponse) {
     const message = response.success
-      ? 'Operation was succesfull.'
+      ? 'Operation was succesfull. Changes saved to cache.'
       : 'Operation failed.';
 
     this.snackBar.open(message, 'OK', { duration: 2000 });
