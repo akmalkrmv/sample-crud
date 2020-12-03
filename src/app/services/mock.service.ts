@@ -30,14 +30,14 @@ export class MockService {
     );
   }
 
-  public update(eventId: string, payload: Partial<Animal>) {
+  public update(eventId: number, payload: Partial<Animal>) {
     return this.httpClient.put(`/api/update`, { eventId, ...payload }).pipe(
       map((response) => response as AnimalOperationResponse),
       tap((response) => this.notify(response))
     );
   }
 
-  public remove(eventId: string): Observable<any> {
+  public remove(eventId: number): Observable<any> {
     return this.httpClient.delete(`/api/remove/${eventId}`).pipe(
       map((response) => response as AnimalOperationResponse),
       tap((response) => this.notify(response))
