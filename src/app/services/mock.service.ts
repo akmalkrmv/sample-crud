@@ -19,9 +19,10 @@ export class MockService {
       .pipe(map((response) => response as AnimalsQueryResponse));
   }
 
-  public create(payload: any) {
-    payload.animalId = this.random();
-    payload.cowlId = this.random();
+  public create(payload: Partial<Animal>) {
+    payload.animalId = this.random().toString();
+    payload.cowId = this.random();
+    payload.eventId = this.random();
 
     return this.httpClient.post(`/api/create`, payload).pipe(
       map((response) => response as AnimalOperationResponse),
