@@ -9,7 +9,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { data } from '../core/mock-data';
-import { Animal } from '../models/animal';
+import { Animal, AnimalOperationResponse } from '../models/animal';
 
 @Injectable()
 export class MockInterceptor implements HttpInterceptor {
@@ -27,7 +27,7 @@ export class MockInterceptor implements HttpInterceptor {
 
     if (method === 'POST' && url.endsWith('/api/create')) {
       data.result.unshift(body);
-      return this.responseWithDelay({ status: 200, body: data });
+      return this.success(body);
     }
 
     if (method === 'PUT' && url.endsWith('/api/update')) {
@@ -35,37 +35,61 @@ export class MockInterceptor implements HttpInterceptor {
 
       if (index >= 0) {
         data.result[index] = body;
-        return this.responseWithDelay({ status: 200, body });
+        return this.success(body);
       } else {
-        return this.responseWithDelay({ status: 404, body });
+        return this.fail(body);
       }
     }
 
-    if (method === 'DELETE' && url.endsWith('/api/delete')) {
-      const index = this.findIndex(body);
+    if (method === 'DELETE' && url.includes('/api/remove')) {
+      const animalId = this.getLastUrlSegment(url);
+      const index = this.findIndex({ animalId });
 
       if (index >= 0) {
         data.result.splice(index, 1);
-        return this.responseWithDelay({ status: 200, body });
+        return this.success(body);
       } else {
-        return this.responseWithDelay({ status: 404, body });
+        return this.fail(body);
       }
     }
 
     return next.handle(request);
   }
 
-  private findIndex(animal: Animal): number {
-    return data.result.findIndex(
-      (item) => item.animalId === animal.animalId
-    );
+  private findIndex({ animalId }: Partial<Animal>): number {
+    return data.result.findIndex((item) => item.animalId == animalId);
   }
 
-  private responseWithDelay({ status, body }) {
+  private success(data) {
+    return this.responseWithDelay({
+      status: 200,
+      body: {
+        data,
+        success: true,
+      } as AnimalOperationResponse,
+    });
+  }
+
+  private fail(data) {
+    return this.responseWithDelay({
+      status: 400,
+      body: {
+        data,
+        success: false,
+      } as AnimalOperationResponse,
+    });
+  }
+
+  private responseWithDelay({ status, body }: { status?: number; body: any }) {
     return of(new HttpResponse({ status, body })).pipe(delay(this.random()));
   }
 
-  private random(min: number = 500, max: number = 2000): number {
+  private random(min: number = 300, max: number = 2000): number {
     return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  private getLastUrlSegment(url: string) {
+    const segments = url.split('/');
+    return segments[segments.length - 1];
   }
 }
