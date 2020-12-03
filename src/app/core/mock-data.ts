@@ -1,6 +1,6 @@
-import { AnimalResponse } from '../models/animal';
+import { AnimalsQueryResponse } from '../models/animal';
 
-export const data: AnimalResponse = {
+export const data: AnimalsQueryResponse = {
   offset: 0,
   limit: 100,
   total: 16976,
