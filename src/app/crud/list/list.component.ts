@@ -9,8 +9,8 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { Animal } from 'src/app/models/animal';
-import { AnimalColumns } from 'src/app/models/animal-columns';
+import { Animal } from 'src/app/models/events';
+import { AnimalColumns } from 'src/app/models/event-columns';
 
 @Component({
   selector: 'app-list',

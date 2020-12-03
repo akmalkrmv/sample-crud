@@ -5,7 +5,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { Animal } from 'src/app/models/animal';
+import { Animal } from 'src/app/models/events';
 
 @Component({
   selector: 'app-actions',

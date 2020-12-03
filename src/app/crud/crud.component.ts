@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { Animal, AnimalsQueryResponse } from '../models/animal';
+import { Animal, AnimalsQueryResponse } from '../models/events';
 import { CacheService } from '../services/cache.service';
 import { MockService } from '../services/mock.service';
 
@@ -61,7 +61,7 @@ export class CrudComponent implements OnInit {
 
     this.loading$.next(true);
 
-    if (animal.animalId) {
+    if (animal.eventId) {
       this.update(animal);
     } else {
       this.create(animal);
@@ -81,7 +81,7 @@ export class CrudComponent implements OnInit {
   public update(animal: Animal) {
     if (!animal) return;
 
-    this.service.update(animal.animalId, animal).subscribe((response) => {
+    this.service.update(animal.eventId, animal).subscribe((response) => {
       this.fetchData();
     });
   }
@@ -90,7 +90,7 @@ export class CrudComponent implements OnInit {
     if (!animal) return;
 
     this.loading$.next(true);
-    this.service.remove(animal.animalId).subscribe((response) => {
+    this.service.remove(animal.eventId).subscribe((response) => {
       this.fetchData();
     });
 

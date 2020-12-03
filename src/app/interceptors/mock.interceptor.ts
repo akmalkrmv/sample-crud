@@ -9,7 +9,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { data } from '../core/mock-data';
-import { Animal, AnimalOperationResponse } from '../models/animal';
+import { Animal, AnimalOperationResponse } from '../models/events';
 import { CacheService } from '../services/cache.service';
 
 @Injectable()
@@ -50,8 +50,8 @@ export class MockInterceptor implements HttpInterceptor {
     }
 
     if (method === 'DELETE' && url.includes('/api/remove')) {
-      const animalId = this.getLastUrlSegment(url);
-      const index = this.findIndex({ animalId });
+      const eventId = this.getLastUrlSegment(url);
+      const index = this.findIndex({ eventId });
 
       if (index >= 0) {
         data.result.splice(index, 1);
@@ -66,8 +66,8 @@ export class MockInterceptor implements HttpInterceptor {
     return next.handle(request);
   }
 
-  private findIndex({ animalId }: Partial<Animal>): number {
-    return data.result.findIndex((item) => item.animalId == animalId);
+  private findIndex({ eventId }: Partial<Animal>): number {
+    return data.result.findIndex((item) => item.eventId == eventId);
   }
 
   private success(data) {
@@ -100,6 +100,6 @@ export class MockInterceptor implements HttpInterceptor {
 
   private getLastUrlSegment(url: string) {
     const segments = url.split('/');
-    return segments[segments.length - 1];
+    return +segments[segments.length - 1];
   }
 }

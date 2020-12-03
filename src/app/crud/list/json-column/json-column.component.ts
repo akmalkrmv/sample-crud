@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Animal } from 'src/app/models/animal';
+import { Animal } from 'src/app/models/events';
 
 @Component({
   selector: 'app-json-column',

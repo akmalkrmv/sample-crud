@@ -13,11 +13,10 @@ export interface AnimalOperationResponse {
 export interface Animal {
   isEditing: boolean;
 
-  cowId: number;
-  animalId: string;
   eventId: number;
+  animalId: string;
+  cowId: number;
   ageInDays: number;
-
   type: string;
   alertType: string;
   cowEntryStatus: string;

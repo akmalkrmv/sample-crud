@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AnimalsQueryResponse } from '../models/animal';
+import { AnimalsQueryResponse } from '../models/events';
 import { data as MockData } from '../core/mock-data';
 
 const KEY = 'cached-data';

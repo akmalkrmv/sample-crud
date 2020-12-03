@@ -7,7 +7,7 @@ import {
   Animal,
   AnimalOperationResponse,
   AnimalsQueryResponse,
-} from '../models/animal';
+} from '../models/events';
 
 @Injectable({ providedIn: 'root' })
 export class MockService {
@@ -30,15 +30,15 @@ export class MockService {
     );
   }
 
-  public update(animalId: string, payload: Partial<Animal>) {
-    return this.httpClient.put(`/api/update`, { animalId, ...payload }).pipe(
+  public update(eventId: string, payload: Partial<Animal>) {
+    return this.httpClient.put(`/api/update`, { eventId, ...payload }).pipe(
       map((response) => response as AnimalOperationResponse),
       tap((response) => this.notify(response))
     );
   }
 
-  public remove(animalId: string): Observable<any> {
-    return this.httpClient.delete(`/api/remove/${animalId}`).pipe(
+  public remove(eventId: string): Observable<any> {
+    return this.httpClient.delete(`/api/remove/${eventId}`).pipe(
       map((response) => response as AnimalOperationResponse),
       tap((response) => this.notify(response))
     );

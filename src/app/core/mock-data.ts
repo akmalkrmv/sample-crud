@@ -1,4 +1,4 @@
-import { AnimalsQueryResponse } from '../models/animal';
+import { AnimalsQueryResponse } from '../models/events';
 
 export const data: AnimalsQueryResponse = {
   offset: 0,

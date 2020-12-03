@@ -8,9 +8,9 @@ export interface AnimalColumnMeta {
 }
 
 export const AnimalColumns: AnimalColumnMeta[] = [
-  { editable: false, name: 'cowId', header: 'Cow Id' },
-  { editable: false, name: 'animalId', header: 'Animal Id' },
   { editable: false, name: 'eventId', header: 'Event Id' },
+  { editable: false, name: 'animalId', header: 'Animal Id' },
+  { editable: false, name: 'cowId', header: 'Cow Id' },
   { editable: false, name: 'newGroupId', header: 'New Group Id' },
   { editable: false, name: 'currentGroupId', header: 'Current Group Id' },
 
