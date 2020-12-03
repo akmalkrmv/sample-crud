@@ -1,10 +1,13 @@
 <div class="container">
   <div class="header">
     <div>
-      <button mat-raised-button><mat-icon>add</mat-icon> Add</button>
+      <button mat-raised-button (click)="addNewItem()">
+        <mat-icon>add</mat-icon> Add
+      </button>
     </div>
     <div>
       <mat-slide-toggle (change)="toggleJsonView()">Json view</mat-slide-toggle>
+
       <button mat-raised-button (click)="fetchData()">
         <mat-icon>refresh</mat-icon> Refresh
       </button>
@@ -16,15 +19,8 @@
     [list]="list$ | async"
     [loading]="loading$ | async"
     [jsonView]="jsonView$ | async"
+    [editingElement]="editingElement$ | async"
+    (saved)="save($event)"
+    (removed)="remove($event)"
   ></app-list>
-
-  <ng-container *ngIf="!(loading$ | async)">
-    <!-- <mat-paginator
-      class="paginator"
-      [length]="100"
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 25, 100]"
-    >
-    </mat-paginator> -->
-  </ng-container>
 </div>

@@ -9,4 +9,5 @@ import { Animal } from 'src/app/models/animal';
 })
 export class JsonColumnComponent {
   @Input() element: Animal;
+  @Input() isEditing: boolean = false;
 }

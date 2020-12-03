@@ -16,8 +16,10 @@
 
     input,
     textarea,
-    .full-width {
+    .full-width,
+    .mat-form-field-infix {
       width: 100%;
+      min-width: 80px;
     }
 
     .mat-cell,

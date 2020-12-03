@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Animal, AnimalColumnMeta } from 'src/app/models/animal';
+import { Animal } from 'src/app/models/animal';
+import { AnimalColumnMeta } from 'src/app/models/animal-columns';
 
 @Component({
   selector: 'app-simple-column',
