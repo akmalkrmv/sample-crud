@@ -70,30 +70,20 @@ export class MockInterceptor implements HttpInterceptor {
   }
 
   private success(data) {
-    return this.responseWithDelay({
-      status: 200,
-      body: {
-        data,
-        success: true,
-      } as EventOperationResponse,
-    });
+    const body = { data, success: false } as EventOperationResponse;
+    return of(new HttpResponse({ status: 200, body }));
   }
 
   private fail(data) {
-    return this.responseWithDelay({
-      status: 400,
-      body: {
-        data,
-        success: false,
-      } as EventOperationResponse,
-    });
+    const body = { data, success: false } as EventOperationResponse;
+    return of(new HttpResponse({ status: 400, body }));
   }
 
   private responseWithDelay({ status, body }: { status?: number; body: any }) {
     return of(new HttpResponse({ status, body })).pipe(delay(this.random()));
   }
 
-  private random(min: number = 300, max: number = 2000): number {
+  private random(min: number = 100, max: number = 1000): number {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
