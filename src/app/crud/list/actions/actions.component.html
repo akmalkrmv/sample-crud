@@ -1,0 +1,15 @@
+<ng-container *ngIf="!element.isEditing ">
+  <button *ngIf="canEdit" mat-flat-button (click)="edit.emit(element)">
+    <mat-icon>edit</mat-icon> Edit
+  </button>
+  <button mat-icon-button (click)="remove.emit(element)" color="warn">
+    <mat-icon>delete</mat-icon>
+  </button>
+</ng-container>
+
+<ng-container *ngIf="element.isEditing">
+  <button mat-flat-button (click)="save.emit(element)">
+    <mat-icon>save</mat-icon> Save
+  </button>
+  <button mat-flat-button (click)="cancel.emit(element)">Cancel</button>
+</ng-container>

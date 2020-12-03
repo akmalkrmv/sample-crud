@@ -1,0 +1,7 @@
+<ng-container *ngIf="isEditing && column.editable;else textmode">
+  <mat-form-field>
+    <input matInput [name]="column.name" [value]="element[column.name] || ''" />
+  </mat-form-field>
+</ng-container>
+
+<ng-template #textmode> {{ element[column.name] }} </ng-template>

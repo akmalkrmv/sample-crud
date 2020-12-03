@@ -1,0 +1,9 @@
+<ng-container *ngIf="element.isEditing; else textmode">
+  <mat-form-field class="full-width">
+    <textarea matInput rows="18">{{ element | json }}</textarea>
+  </mat-form-field>
+</ng-container>
+
+<ng-template #textmode>
+  {{ element | json }}
+</ng-template>

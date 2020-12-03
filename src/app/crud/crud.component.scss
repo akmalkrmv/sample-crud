@@ -1,0 +1,28 @@
+.container {
+  padding: 10px 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    flex-grow: 0;
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: space-between;
+
+    button:not(:first-child) {
+      margin-left: 10px;
+    }
+  }
+
+  .list {
+    display: block;
+    max-height: 88vh;
+    flex-grow: 1;
+  }
+
+  .paginator {
+    flex-grow: 0;
+  }
+}
