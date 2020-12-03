@@ -9,8 +9,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { Animal } from 'src/app/models/events';
-import { AnimalColumns } from 'src/app/models/event-columns';
+import { Event, EventColumns } from '@models/index';
 
 @Component({
   selector: 'app-list',
@@ -20,33 +19,33 @@ import { AnimalColumns } from 'src/app/models/event-columns';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent implements OnChanges {
-  @Input() list: Partial<Animal>[];
+  @Input() list: Partial<Event>[];
   @Input() loading: boolean;
   @Input() jsonView: boolean;
   @Input() isEditing: boolean;
-  @Input() newElement: Partial<Animal>;
+  @Input() newElement: Partial<Event>;
 
-  @Output() saved = new EventEmitter<Partial<Animal>>();
-  @Output() removed = new EventEmitter<Partial<Animal>>();
+  @Output() saved = new EventEmitter<Partial<Event>>();
+  @Output() removed = new EventEmitter<Partial<Event>>();
   @Output() cancelled = new EventEmitter();
 
-  public columns = AnimalColumns;
+  public columns = EventColumns;
   public columnsToDisplay = [];
 
   public allColumns: string[] = [
     'index',
-    ...AnimalColumns.map((column) => column.name),
+    ...EventColumns.map((column) => column.name),
     'actions',
   ];
 
   public jsonColumns: string[] = [
     'index',
-    ...AnimalColumns.map((column) => column.name).slice(0, 5),
+    ...EventColumns.map((column) => column.name).slice(0, 5),
     'json',
     'actions',
   ];
 
-  private listCache: Partial<Animal>[] = [];
+  private listCache: Partial<Event>[] = [];
 
   constructor(private changeDetector: ChangeDetectorRef) {}
 
@@ -60,22 +59,22 @@ export class ListComponent implements OnChanges {
     }
 
     if (newElement && newElement.currentValue != newElement.previousValue) {
-      this.list = this.newElement ? [this.newElement, ...this.list] : this.listCache;
+      this.list = this.newElement
+        ? [this.newElement, ...this.list]
+        : this.listCache;
       this.changeDetector.markForCheck();
     }
 
-    
     if (list && list.currentValue != list.previousValue) {
       this.listCache = this.list;
     }
-
   }
 
   public get isEmpty() {
     return !this.list || !this.list.length;
   }
 
-  public edit(animal: Animal) {
+  public edit(animal: Event) {
     const wasEditing = animal.isEditing;
     this.list.forEach((element) => (element.isEditing = false));
     animal.isEditing = !wasEditing;
@@ -83,17 +82,17 @@ export class ListComponent implements OnChanges {
     this.cancelled.emit();
   }
 
-  public save(animal: Animal) {
+  public save(animal: Event) {
     animal.isEditing = false;
     this.saved.emit(animal);
   }
 
-  public cancel(animal: Animal) {
+  public cancel(animal: Event) {
     animal.isEditing = false;
     this.cancelled.emit();
   }
 
-  public remove(animal: Animal) {
+  public remove(animal: Event) {
     if (confirm('Are you sure you want to delete this item?')) {
       this.removed.emit(animal);
     }

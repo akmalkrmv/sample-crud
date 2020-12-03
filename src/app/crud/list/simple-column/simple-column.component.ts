@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Animal } from 'src/app/models/events';
-import { AnimalColumnMeta } from 'src/app/models/event-columns';
+import { Event, EventColumnMeta } from '@models/index';
 
 @Component({
   selector: 'app-simple-column',
@@ -9,7 +8,7 @@ import { AnimalColumnMeta } from 'src/app/models/event-columns';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SimpleColumnComponent {
-  @Input() element: Animal;
+  @Input() element: Event;
   @Input() isEditing: boolean;
-  @Input() column: AnimalColumnMeta;
+  @Input() column: EventColumnMeta;
 }

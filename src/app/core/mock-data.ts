@@ -1,6 +1,6 @@
-import { AnimalsQueryResponse } from '../models/events';
+import { EventsQueryResponse } from '../models/events';
 
-export const data: AnimalsQueryResponse = {
+export const data: EventsQueryResponse = {
   offset: 0,
   limit: 100,
   total: 16976,

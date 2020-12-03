@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { Animal, AnimalsQueryResponse } from '../models/events';
-import { CacheService } from '../services/cache.service';
-import { MockService } from '../services/mock.service';
+
+import { Event, EventsQueryResponse } from '@models/index';
+import { MockService, CacheService } from '@services/index';
 
 @Component({
   selector: 'app-crud',
@@ -13,10 +13,10 @@ import { MockService } from '../services/mock.service';
 export class CrudComponent implements OnInit {
   public loading$ = new BehaviorSubject(false);
   public jsonView$ = new BehaviorSubject(false);
-  public newElement$ = new BehaviorSubject<Partial<Animal>>(null);
+  public newElement$ = new BehaviorSubject<Partial<Event>>(null);
 
-  public response$: Observable<AnimalsQueryResponse>;
-  public list$: Observable<Partial<Animal>[]>;
+  public response$: Observable<EventsQueryResponse>;
+  public list$: Observable<Partial<Event>[]>;
 
   constructor(private service: MockService, private cache: CacheService) {}
 
@@ -48,7 +48,7 @@ export class CrudComponent implements OnInit {
   }
 
   public addNewItem() {
-    const newItem: Partial<Animal> = { isEditing: true };
+    const newItem: Partial<Event> = { isEditing: true };
     this.newElement$.next(newItem);
   }
 
@@ -56,7 +56,7 @@ export class CrudComponent implements OnInit {
     this.newElement$.next(null);
   }
 
-  public save(animal: Animal) {
+  public save(animal: Event) {
     if (!animal) return;
 
     this.loading$.next(true);
@@ -70,7 +70,7 @@ export class CrudComponent implements OnInit {
     this.newElement$.next(null);
   }
 
-  public create(animal: Animal) {
+  public create(animal: Event) {
     if (!animal) return;
 
     this.service.create(animal).subscribe((response) => {
@@ -78,7 +78,7 @@ export class CrudComponent implements OnInit {
     });
   }
 
-  public update(animal: Animal) {
+  public update(animal: Event) {
     if (!animal) return;
 
     this.service.update(animal.eventId, animal).subscribe((response) => {
@@ -86,7 +86,7 @@ export class CrudComponent implements OnInit {
     });
   }
 
-  public remove(animal: Animal) {
+  public remove(animal: Event) {
     if (!animal) return;
 
     this.loading$.next(true);

@@ -4,10 +4,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import {
-  Animal,
-  AnimalOperationResponse,
-  AnimalsQueryResponse,
-} from '../models/events';
+  Event,
+  EventOperationResponse,
+  EventsQueryResponse,
+} from '@models/index';
 
 @Injectable({ providedIn: 'root' })
 export class MockService {
@@ -16,35 +16,35 @@ export class MockService {
   public getAll(): Observable<any> {
     return this.httpClient
       .get(`/api/getAll`)
-      .pipe(map((response) => response as AnimalsQueryResponse));
+      .pipe(map((response) => response as EventsQueryResponse));
   }
 
-  public create(payload: Partial<Animal>) {
+  public create(payload: Partial<Event>) {
     payload.animalId = this.random().toString();
     payload.cowId = this.random();
     payload.eventId = this.random();
 
     return this.httpClient.post(`/api/create`, payload).pipe(
-      map((response) => response as AnimalOperationResponse),
+      map((response) => response as EventOperationResponse),
       tap((response) => this.notify(response))
     );
   }
 
-  public update(eventId: number, payload: Partial<Animal>) {
+  public update(eventId: number, payload: Partial<Event>) {
     return this.httpClient.put(`/api/update`, { eventId, ...payload }).pipe(
-      map((response) => response as AnimalOperationResponse),
+      map((response) => response as EventOperationResponse),
       tap((response) => this.notify(response))
     );
   }
 
   public remove(eventId: number): Observable<any> {
     return this.httpClient.delete(`/api/remove/${eventId}`).pipe(
-      map((response) => response as AnimalOperationResponse),
+      map((response) => response as EventOperationResponse),
       tap((response) => this.notify(response))
     );
   }
 
-  private notify(response: AnimalOperationResponse) {
+  private notify(response: EventOperationResponse) {
     const message = response.success
       ? 'Operation was succesfull. Changes saved to cache.'
       : 'Operation failed.';

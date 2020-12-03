@@ -1,16 +1,16 @@
-export interface AnimalsQueryResponse {
+export interface EventsQueryResponse {
   offset: number;
   limit: number;
   total: number;
-  result: Partial<Animal>[];
+  result: Partial<Event>[];
 }
 
-export interface AnimalOperationResponse {
+export interface EventOperationResponse {
   success: boolean;
-  data: Partial<Animal>[];
+  data: Partial<Event>[];
 }
 
-export interface Animal {
+export interface Event {
   isEditing: boolean;
 
   eventId: number;

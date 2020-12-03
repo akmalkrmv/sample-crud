@@ -5,7 +5,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { Animal } from 'src/app/models/events';
+import { Event } from '@models/index';
 
 @Component({
   selector: 'app-actions',
@@ -14,11 +14,11 @@ import { Animal } from 'src/app/models/events';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionsComponent {
-  @Input() element: Animal;
+  @Input() element: Event;
   @Input() canEdit: boolean = false;
 
-  @Output() edit = new EventEmitter<Animal>();
-  @Output() save = new EventEmitter<Animal>();
-  @Output() cancel = new EventEmitter<Animal>();
-  @Output() remove = new EventEmitter<Animal>();
+  @Output() edit = new EventEmitter<Event>();
+  @Output() save = new EventEmitter<Event>();
+  @Output() cancel = new EventEmitter<Event>();
+  @Output() remove = new EventEmitter<Event>();
 }

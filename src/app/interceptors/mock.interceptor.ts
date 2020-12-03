@@ -8,9 +8,9 @@ import {
 } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { data } from '../core/mock-data';
-import { Animal, AnimalOperationResponse } from '../models/events';
-import { CacheService } from '../services/cache.service';
+
+import { Event, EventOperationResponse } from '@models/index';
+import { CacheService } from '@services/index';
 
 @Injectable()
 export class MockInterceptor implements HttpInterceptor {
@@ -36,7 +36,7 @@ export class MockInterceptor implements HttpInterceptor {
     }
 
     if (method === 'PUT' && url.endsWith('/api/update')) {
-      console.log(body)
+      console.log(body);
       const index = this.findIndex(body);
 
       if (index >= 0) {
@@ -66,7 +66,7 @@ export class MockInterceptor implements HttpInterceptor {
     return next.handle(request);
   }
 
-  private findIndex({ eventId }: Partial<Animal>): number {
+  private findIndex({ eventId }: Partial<Event>): number {
     return data.result.findIndex((item) => item.eventId == eventId);
   }
 
@@ -76,7 +76,7 @@ export class MockInterceptor implements HttpInterceptor {
       body: {
         data,
         success: true,
-      } as AnimalOperationResponse,
+      } as EventOperationResponse,
     });
   }
 
@@ -86,7 +86,7 @@ export class MockInterceptor implements HttpInterceptor {
       body: {
         data,
         success: false,
-      } as AnimalOperationResponse,
+      } as EventOperationResponse,
     });
   }
 

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { AnimalsQueryResponse } from '../models/events';
+import { EventsQueryResponse } from '@models/index';
 import { data as MockData } from '../core/mock-data';
 
 const KEY = 'cached-data';
 
 @Injectable({ providedIn: 'root' })
 export class CacheService {
-  public getData(): AnimalsQueryResponse {
+  public getData(): EventsQueryResponse {
     return this.cache || (this.cache = MockData);
   }
 
-  public update(value: AnimalsQueryResponse) {
+  public update(value: EventsQueryResponse) {
     this.cache = value;
   }
 
@@ -18,12 +18,12 @@ export class CacheService {
     this.cache = null;
   }
 
-  private get cache(): AnimalsQueryResponse {
+  private get cache(): EventsQueryResponse {
     return localStorage.getItem(KEY)
-      ? (JSON.parse(localStorage.getItem(KEY)) as AnimalsQueryResponse)
+      ? (JSON.parse(localStorage.getItem(KEY)) as EventsQueryResponse)
       : null;
   }
-  private set cache(value: AnimalsQueryResponse) {
+  private set cache(value: EventsQueryResponse) {
     localStorage.setItem(KEY, JSON.stringify(value));
   }
 }

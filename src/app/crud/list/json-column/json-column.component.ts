@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Animal } from 'src/app/models/events';
+import { Event } from '@models/index';
 
 @Component({
   selector: 'app-json-column',
@@ -8,6 +8,6 @@ import { Animal } from 'src/app/models/events';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JsonColumnComponent {
-  @Input() element: Animal;
+  @Input() element: Event;
   @Input() isEditing: boolean = false;
 }

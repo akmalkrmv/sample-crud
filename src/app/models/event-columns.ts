@@ -1,13 +1,13 @@
 type ColumnType = 'text' | 'number' | 'date';
 
-export interface AnimalColumnMeta {
+export interface EventColumnMeta {
   editable: boolean;
   name: string;
   header: string;
   type?: ColumnType;
 }
 
-export const AnimalColumns: AnimalColumnMeta[] = [
+export const EventColumns: EventColumnMeta[] = [
   { editable: false, name: 'eventId', header: 'Event Id' },
   { editable: false, name: 'animalId', header: 'Animal Id' },
   { editable: false, name: 'cowId', header: 'Cow Id' },
