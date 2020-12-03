@@ -36,8 +36,7 @@ export class MockInterceptor implements HttpInterceptor {
     }
 
     if (method === 'PUT' && url.endsWith('/api/update')) {
-      console.log(body);
-      const index = this.findIndex(body);
+      const index = this.findIndex(data, body);
 
       if (index >= 0) {
         data.result[index] = body;
@@ -51,7 +50,7 @@ export class MockInterceptor implements HttpInterceptor {
 
     if (method === 'DELETE' && url.includes('/api/remove')) {
       const eventId = this.getLastUrlSegment(url);
-      const index = this.findIndex({ eventId });
+      const index = this.findIndex(data, { eventId });
 
       if (index >= 0) {
         data.result.splice(index, 1);
@@ -66,7 +65,7 @@ export class MockInterceptor implements HttpInterceptor {
     return next.handle(request);
   }
 
-  private findIndex({ eventId }: Partial<Event>): number {
+  private findIndex(data, { eventId }: Partial<Event>): number {
     return data.result.findIndex((item) => item.eventId == eventId);
   }
 
